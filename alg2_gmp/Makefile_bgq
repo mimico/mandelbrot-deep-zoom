@@ -1,0 +1,12 @@
+CC = mpicc
+CFLAGS=-g -O3 -qarch=qp -qtune=qp -qsmp=omp -I${SCINET_bgqgcc_INC}
+
+OBJS =  main.o julia.o julia_row.o savebmp.o getparams.o
+
+video: $(OBJS)
+	$(CC) $(CFLAGS) -L${SCINET_bgqgcc_LIB} -o video $(OBJS) -lm -lgmp
+
+$(OBJS): julia.h
+
+clean:
+	rm -rf $(OBJS) video
